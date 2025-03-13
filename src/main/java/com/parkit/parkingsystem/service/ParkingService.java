@@ -48,7 +48,7 @@ public class ParkingService {
                 ticketDAO.saveTicket(ticket);
                 System.out.println("Generated Ticket and saved in DB");
                 if (ticketDAO.getNbTicket(ticket) >= 1) {
-                	int discountInPercent = (int) Fare.DISCOUNT * 100;
+                	int discountInPercent = (int) (Fare.DISCOUNT * 100);
 					System.out.println("Welcome back! As a recurring user of our parking lot, you'll benefit from a " + String.valueOf(discountInPercent) + "% discount.");
 				}
                 System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
@@ -59,7 +59,7 @@ public class ParkingService {
         }
     }
 
-    private String getVehichleRegNumber() throws Exception {
+    private String  getVehichleRegNumber() throws Exception {
         System.out.println("Please type the vehicle registration number and press enter key");
         return inputReaderUtil.readVehicleRegistrationNumber();
     }
