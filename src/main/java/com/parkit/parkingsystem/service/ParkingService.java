@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
+import java.util.Optional;
 
 public class ParkingService {
 
@@ -102,11 +103,13 @@ public class ParkingService {
         }
     }
 
-    public void processExitingVehicle() {
+    public void processExitingVehicle(Date outTime) {
         try{
             String vehicleRegNumber = getVehichleRegNumber();
             Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
-            Date outTime = new Date();
+            if (outTime == null) {
+            	outTime = new Date();
+            }
             ticket.setOutTime(outTime);
             boolean isRecurringUser = false;
             if (ticketDAO.getNbTicket(ticket) >= 1) {

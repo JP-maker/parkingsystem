@@ -69,7 +69,7 @@ public class ParkingServiceTest {
 
     @Test
     public void processExitingVehicleTest() {
-        parkingService.processExitingVehicle();
+        parkingService.processExitingVehicle(null);
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
         verify(ticketDAO, Mockito.times(1)).getNbTicket(any(Ticket.class));
     }
@@ -87,7 +87,7 @@ public class ParkingServiceTest {
     
     @Test
 	public void processExitingVehicleTestUnableUpdate() {
-    	parkingService.processExitingVehicle();
+    	parkingService.processExitingVehicle(null);
         verify(ticketDAO, Mockito.times(1)).updateTicket(any(Ticket.class));
         assertFalse(ticketDAO.updateTicket(any(Ticket.class)));
 	}
@@ -104,10 +104,11 @@ public class ParkingServiceTest {
 	
 	@Test
 	public void testGetNextParkingNumberIfAvailableParkingNumberNotFound () {
+        String expectedMessage = "Error fetching next available parking slot";
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(0);
         assertNull(parkingService.getNextParkingNumberIfAvailable());
-	}
+    }
 	
 	@Test
 	public void testGetNextParkingNumberIfAvailableParkingNumberWrongArgument () {
